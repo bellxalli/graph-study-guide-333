@@ -1,6 +1,3 @@
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.*;
 
 public class Practice {
@@ -58,6 +55,7 @@ public class Practice {
     return oddCount;
   }
 
+//Fix for MAP GRAPHS
   /**
    * Returns a *sorted* list of all values reachable from the starting vertex (including the starting vertex itself).
    * If duplicate vertex data exists, duplicates should appear in the output.
@@ -78,31 +76,36 @@ public class Practice {
    */
   public static List<Integer> sortedReachable(Vertex<Integer> starting) {
     List<Integer> data = new ArrayList<>();
+    Set<Vertex<Integer>> visited = new HashSet<>();
 
     if(starting == null)
     {
       return data;
     }
 
-    addData(starting, data);
+    Queue<Vertex<Integer>> q = new LinkedList<>();
+    q.add(starting);
+    visited.add(starting);
+
+    while(!q.isEmpty())
+    {
+      Vertex<Integer> current = q.poll();
+
+      data.add(current.data);
+
+      for(Vertex<Integer> n : current.neighbors) 
+      {
+        if(!visited.contains(n)) 
+        {
+          q.add(n);
+          visited.add(n);
+        }
+      }
+    }
+
     Collections.sort(data);
     
     return data;
-  }
-
-  private static void addData(Vertex<Integer> current, List<Integer> data)
-  {
-    if(current == null)
-    {
-      return;
-    }
-
-    data.add(current.data);
-    
-    for(Vertex<Integer> n : current.neighbors)
-    {
-      addData(n, data);
-    }
   }
 
 
