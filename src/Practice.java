@@ -223,9 +223,42 @@ public class Practice {
    * @return whether there exists a valid positive path from starting to ending
    */
   public static boolean positivePathExists(Map<Integer, Set<Integer>> graph, int starting, int ending) {
+    if(starting == ending && starting >= 0)
+    {
+      return true;
+    }
+    if(starting < 0)
+    {
+      return false;
+    }
+
+    Set<Integer> visited = new HashSet<>();
+    Queue<Integer> q = new LinkedList<>();
+
+    q.add(starting);
+    visited.add(starting);
+
+    while(!q.isEmpty())
+    {
+      int current = q.poll();
+      if(current == ending)
+      {
+        return true;
+      }
+
+      for(Integer n : graph.get(current))
+      {
+        if(n >= 0 && !visited.contains(n))
+        {
+          q.add(n);
+          visited.add(n);
+        }
+      }
+    }
+
     return false;
   }
-
+  
   /**
    * Returns true if a professional has anyone in their extended network (reachable through any number of links)
    * that works for the given company. The search includes the professional themself.
