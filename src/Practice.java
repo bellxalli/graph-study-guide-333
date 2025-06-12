@@ -173,18 +173,40 @@ public class Practice {
     boolean connectOne = inDirectCheck(v1, v2);
     boolean connectTwo = inDirectCheck(v2, v1);
 
-    if(v1 == v2 || v2.neighbors.contains(v1) && v1.neighbors.contains(v2))
+    if(v1 == v2 || connectOne && connectTwo)
     {
       return true;
     }
 
     return false;
   }
-  private static <T> boolean inDirectCheck(Vertex<T> va, Vertex<T> vb)
+  private static <T> boolean inDirectCheck(Vertex<T> start, Vertex<T> end)
   {
-    Set<T> visited = new HashSet<>();
+    Set<Vertex<T>> visited = new HashSet<>();
+    Queue<Vertex<T>> q = new LinkedList<>();
+
+    q.add(start);
+    visited.add(start);
     
-    
+    while(!q.isEmpty())
+    {
+      Vertex<T> current = q.poll();
+
+      if(start == current)
+      {
+        return true;
+      }
+
+      for(Vertex<T> n : start.neighbors)
+      {
+        if(!visited.contains(n))
+        {
+          visited.add(n);
+          q.add(n);
+        }
+      }
+    }
+
     return false;
   }
 
