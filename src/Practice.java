@@ -372,11 +372,25 @@ public class Practice {
    * @return an unsorted list of next moves
    */
   public static List<int[]> nextMoves(char[][] board, int[] current, int[][] directions) {
-    return null;
+    //can move in for directions up, down, right, downleft
+    //returning list of all possible moves as r,c pairs (list of length 2 arrays)
+    //can move anywhere EXCEPT
+    //  off the board (out of bounds)
+    //  any space marked with an X
+
+    List<int[]> moves = new ArrayList<>();   
+
+    for(int[] d : directions)
+    {
+      int rr = current[0] + d[0];
+      int cc = current[1] + d[1];
+
+      if(rr >= 0 && cc >= 0 && rr < board.length && cc < board[0].length && board[rr][cc] != 'X')
+      {
+        moves.add(new int[]{rr, cc});
+      }
+    }
+
+    return moves;
   }
 }
-
-
-
-
-
