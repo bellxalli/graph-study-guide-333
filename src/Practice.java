@@ -27,7 +27,6 @@ public class Practice {
 
     return oddVertices(starting, visited);
   }
-
   private static int oddVertices(Vertex<Integer> current, Set<Vertex<Integer>> visited)
   {
     if(current == null)
@@ -55,7 +54,6 @@ public class Practice {
     return oddCount;
   }
 
-//Fix for MAP GRAPHS
   /**
    * Returns a *sorted* list of all values reachable from the starting vertex (including the starting vertex itself).
    * If duplicate vertex data exists, duplicates should appear in the output.
@@ -107,7 +105,6 @@ public class Practice {
     
     return data;
   }
-
 
   /**
    * Returns a sorted list of all values reachable from the given starting vertex in the provided graph.
@@ -168,6 +165,26 @@ public class Practice {
    * @return true if there is a two-way connection between v1 and v2, false otherwise
    */
   public static <T> boolean twoWay(Vertex<T> v1, Vertex<T> v2) {
+    if(v1 == null || v2 == null)
+    {
+      return false;
+    }
+
+    boolean connectOne = inDirectCheck(v1, v2);
+    boolean connectTwo = inDirectCheck(v2, v1);
+
+    if(v1 == v2 || v2.neighbors.contains(v1) && v1.neighbors.contains(v2))
+    {
+      return true;
+    }
+
+    return false;
+  }
+  private static <T> boolean inDirectCheck(Vertex<T> va, Vertex<T> vb)
+  {
+    Set<T> visited = new HashSet<>();
+    
+    
     return false;
   }
 
