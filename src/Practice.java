@@ -120,7 +120,37 @@ public class Practice {
    * @return a sorted list of all reachable vertex values
    */
   public static List<Integer> sortedReachable(Map<Integer, Set<Integer>> graph, int starting) {
-    return null;
+    List<Integer> data = new ArrayList<>();
+    Set<Integer> visited = new HashSet<>();
+
+    if(!graph.containsKey(starting))
+    {
+      return data;
+    }
+
+    Queue<Integer> q = new LinkedList<>();
+    q.add(starting);
+    visited.add(starting);
+
+    while(!q.isEmpty())
+    {
+      int current = q.poll();
+
+      data.add(current); //check 
+
+      for(Integer n : graph.get(current)) 
+      {
+        if(!visited.contains(n)) 
+        {
+          q.add(n);
+          visited.add(n);
+        }
+      }
+    }
+
+    Collections.sort(data);
+
+    return data;
   }
 
   /**
