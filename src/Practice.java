@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.*;
 
 public class Practice {
 
@@ -25,7 +26,36 @@ public class Practice {
    * @return the number of vertices with odd values reachable from the starting vertex
    */
   public static int oddVertices(Vertex<Integer> starting) {
-    return 0;
+    Set<Vertex<Integer>> visited = new HashSet<>();
+
+    return oddVertices(starting, visited);
+  }
+
+  private static int oddVertices(Vertex<Integer> current, Set<Vertex<Integer>> visited)
+  {
+    if(current == null)
+    {
+      return 0;
+    }
+    if(visited.contains(current))
+    {
+      return 0;
+    }
+
+    visited.add(current);
+    int oddCount = 0;
+
+    if(current.data % 2 != 0)
+    {
+      oddCount++;
+    }
+
+    for(Vertex<Integer> n : current.neighbors)
+    {
+      oddCount += oddVertices(n, visited);
+    }
+
+    return oddCount;
   }
 
   /**
@@ -47,8 +77,34 @@ public class Practice {
    * @return a sorted list of all reachable vertex values by 
    */
   public static List<Integer> sortedReachable(Vertex<Integer> starting) {
-    return null;
+    List<Integer> data = new ArrayList<>();
+
+    if(starting == null)
+    {
+      return data;
+    }
+
+    addData(starting, data);
+    Collections.sort(data);
+    
+    return data;
   }
+
+  private static void addData(Vertex<Integer> current, List<Integer> data)
+  {
+    if(current == null)
+    {
+      return;
+    }
+
+    data.add(current.data);
+    
+    for(Vertex<Integer> n : current.neighbors)
+    {
+      addData(n, data);
+    }
+  }
+
 
   /**
    * Returns a sorted list of all values reachable from the given starting vertex in the provided graph.
@@ -182,3 +238,8 @@ public class Practice {
     return null;
   }
 }
+
+
+
+
+
